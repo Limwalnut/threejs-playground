@@ -7,7 +7,7 @@ import WebGL from "../../utils/webgl"
 onMounted(() => {
     if (WebGL.isWebGLAvailable()) {
         // Initiate function or other initializations here
-        new ThreeJs('line');
+        new ThreeJs();
     } else {
         const warning = WebGL.getWebGLErrorMessage();
         document.getElementById('container')?.appendChild(warning);

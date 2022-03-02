@@ -6,8 +6,11 @@ export default class ThreeJS {
   renderer: THREE.WebGLRenderer | null = null
   ambientLight: THREE.AmbientLight | null = null
   mesh: THREE.Mesh | null = null
+  line: THREE.Line | null = null
+  type: string = ''
 
-  constructor() {
+  constructor(type: string) {
+    this.type = type
     this.init()
   }
 
@@ -15,7 +18,11 @@ export default class ThreeJS {
     this.scene = new THREE.Scene()
     this.setCamera()
     this.setRenderer()
-    this.setCube()
+    if (this.type === 'cube') {
+      this.setCube()
+    } else {
+      this.setLine()
+    }
     this.animate()
   }
 
@@ -57,6 +64,21 @@ export default class ThreeJS {
     }
   }
 
+  // 创建线条
+  setLine(): void {
+    if (this.scene) {
+      const material = new THREE.LineBasicMaterial({ color: 0x0000ff })
+      const points = []
+      points.push(new THREE.Vector3(-2, 0, 0))
+      points.push(new THREE.Vector3(0, 2, 0))
+      points.push(new THREE.Vector3(2, 0, 0))
+      const geometry = new THREE.BufferGeometry().setFromPoints(points)
+      this.line = new THREE.Line(geometry, material)
+      this.scene.add(this.line) //网格模型添加到场景中
+      this.render()
+    }
+  }
+
   // 渲染
   render(): void {
     if (this.renderer && this.scene && this.camera) {
@@ -68,6 +90,11 @@ export default class ThreeJS {
       requestAnimationFrame(this.animate.bind(this))
       this.mesh.rotation.x += 0.01
       this.mesh.rotation.y += 0.01
+      this.render()
+    } else if (this.line) {
+      requestAnimationFrame(this.animate.bind(this))
+      this.line.rotation.z += 0.01
+      //   this.line.rotation.y += 0.01
       this.render()
     }
   }

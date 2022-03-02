@@ -1,9 +1,11 @@
 <template>
-  <Three></Three>
+  <!-- <Three></Three> -->
+  <ThreeModel></ThreeModel>
 </template>
 
 <script setup lang="ts">
 import Three from './components/three/index.vue'
+import ThreeModel from './components/modelLoader/index.vue'
 </script>
 
 <style>
@@ -13,6 +15,5 @@ import Three from './components/three/index.vue'
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
